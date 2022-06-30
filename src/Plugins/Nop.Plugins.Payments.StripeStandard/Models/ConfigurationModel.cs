@@ -41,10 +41,9 @@ namespace Nop.Plugin.Payments.StripeStandard.Models
         public bool AdditionalFeePercentage { get; set; }
         public bool AdditionalFeePercentage_OverrideForStore { get; set; }
 
-        [NopResourceDisplayName("Plugins.Payments.StripeStandard.Fields.PaymentTypeId")]
+        [NopResourceDisplayName("Plugins.Payments.StripeStandard.Fields.PaymentType")]
         public int PaymentTypeId { get; set; }
         public bool PaymentTypeId_OverrideForStore { get; set; }
-    
         public IList<SelectListItem> PaymentTypes { get; set; }
     }
 }

@@ -86,8 +86,9 @@ namespace Nop.Plugin.Payments.StripeStandard.Controllers
                 model.AdditionalFeePercentage_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.AdditionalFeePercentage, storeScope);
                 model.PaymentTypeId_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.PaymentType, storeScope);
             }
-
-                model.PaymentTypes = await (await PaymentType.Authorize.ToSelectListAsync(false)).Select(item => new SelectListItem(item.Text, item.Value)).ToListAsync();
+            model.PaymentTypes = await (await PaymentType.Authorize.ToSelectListAsync(false))
+                .Select(item => new SelectListItem(item.Text, item.Value)).ToListAsync();
+            
                 return View("~/Plugins/Payments.StripeStandard/Views/Configure.cshtml", model);
             
         }
@@ -115,7 +116,6 @@ namespace Nop.Plugin.Payments.StripeStandard.Controllers
             stripeStandardPaymentSettings.LivePublishableKey = model.LivePublishableKey;
             stripeStandardPaymentSettings.LiveSecretKey = model.LiveSecretKey;
             stripeStandardPaymentSettings.PaymentType = (PaymentType) model.PaymentTypeId;
-
             stripeStandardPaymentSettings.AdditionalFee = model.AdditionalFee;
             stripeStandardPaymentSettings.AdditionalFeePercentage = model.AdditionalFeePercentage;
 

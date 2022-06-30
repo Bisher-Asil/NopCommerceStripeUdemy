@@ -50,13 +50,13 @@ namespace Nop.Plugins.Payments.StripeStandard
 
             //locales
             await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
-            {
+            {                
+                ["Plugins.Payments.StripeStandard.Fields.AdditionalFee"] = "Additional fee",
                 ["Plugins.Payments.StripeStandard.Fields.AdditionalFee.Hint"] = "Enter additional fee to charge your customers.",
                 ["Plugins.Payments.StripeStandard.Fields.AdditionalFeePercentage"] = "Additional fee. Use percentage",
                 ["Plugins.Payments.StripeStandard.Fields.AdditionalFeePercentage.Hint"] = "Determines whether to apply a percentage additional fee to the order total. If not enabled, a fixed value is used.",
                 ["Plugins.Payments.StripeStandard.Fields.UseSandbox"] = "Use Sandbox",
                 ["Plugins.Payments.StripeStandard.Fields.UseSandbox.Hint"] = "Check to enable Sandbox (testing environment).",
-                ["Plugins.Payments.StripeStandard.Fields.AdditionalFee"] = "Additional fee",
                 ["Plugins.Payments.StripeStandard.Fields.Title"] = "Title",
                 ["Plugins.Payments.StripeStandard.Fields.Title.Hint"] = "Specify your title.",
                 ["Plugins.Payments.StripeStandard.Fields.TestPublishableKey"] = "TestPublishableKey",
@@ -69,6 +69,8 @@ namespace Nop.Plugins.Payments.StripeStandard
                 ["Plugins.Payments.StripeStandard.Fields.LiveSecretKey.Hint"] = "Specify your LiveSecretKey.",
                 ["Plugins.Payments.StripeStandard.Fields.PaymentType"] = "Payment Type",
                 ["Plugins.Payments.StripeStandard.Fields.PaymentType.Hint"] = "Specify your PaymentType.",
+                ["Plugins.Payments.StripeStandard.Fields.PaymentTypeId"] = "Payment Type",
+                ["Plugins.Payments.StripeStandard.Fields.PaymentTypeId.Hint"] = "Specify your PaymentType.",
 
 
                 ["Plugins.Payments.StripeStandard.Instructions"] = @"
