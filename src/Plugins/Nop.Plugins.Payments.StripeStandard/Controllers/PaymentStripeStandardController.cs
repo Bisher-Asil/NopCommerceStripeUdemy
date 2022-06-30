@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core;
 using Nop.Plugin.Payments.StripeStandard.Models;
 using Nop.Plugins.Payments.StripeStandard;
 using Nop.Plugins.Payments.StripeStandard.EnumWork;
+using Nop.Services;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Messages;
@@ -72,20 +74,22 @@ namespace Nop.Plugin.Payments.StripeStandard.Controllers
                 PaymentTypeId = (int)stripeStandardPaymentSettings.PaymentType
             };
 
-            if (storeScope <= 0)
-                return View("~/Plugins/Payments.StripeStandard/Views/Configure.cshtml", model);
+            if (storeScope > 0)
+            {
+                model.UseSandbox_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.UseSandbox, storeScope);
+                model.Title_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.Title, storeScope);
+                model.TestPublishableKey_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.TestPublishableKey, storeScope);
+                model.LivePublishableKey_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.LivePublishableKey, storeScope);
+                model.TestSecretKey_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.TestSecretKey, storeScope);
+                model.LiveSecretKey_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.LiveSecretKey, storeScope);
+                model.AdditionalFee_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.AdditionalFee, storeScope);
+                model.AdditionalFeePercentage_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.AdditionalFeePercentage, storeScope);
+                model.PaymentTypeId_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.PaymentType, storeScope);
+            }
 
-            model.UseSandbox_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.UseSandbox, storeScope);
-            model.Title_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.Title, storeScope);
-            model.TestPublishableKey_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.TestPublishableKey, storeScope);
-            model.LivePublishableKey_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.LivePublishableKey, storeScope);
-            model.TestSecretKey_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.TestSecretKey, storeScope);
-            model.LiveSecretKey_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.LiveSecretKey, storeScope);
-            model.AdditionalFee_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.AdditionalFee, storeScope);
-            model.AdditionalFeePercentage_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.AdditionalFeePercentage, storeScope);
-            model.PaymentTypeId_OverrideForStore = await _settingService.SettingExistsAsync(stripeStandardPaymentSettings, x => x.PaymentType, storeScope);
+                model.PaymentTypes = await (await PaymentType.Authorize.ToSelectListAsync(false)).Select(item => new SelectListItem(item.Text, item.Value)).ToListAsync();
+                return View("~/Plugins/Payments.StripeStandard/Views/Configure.cshtml", model);
             
-            return View("~/Plugins/Payments.StripeStandard/Views/Configure.cshtml", model);
         }
 
         [HttpPost]

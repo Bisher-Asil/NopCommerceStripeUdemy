@@ -45,6 +45,6 @@ namespace Nop.Plugin.Payments.StripeStandard.Models
         public int PaymentTypeId { get; set; }
         public bool PaymentTypeId_OverrideForStore { get; set; }
     
-        public IList<SelectListItem> PaymentType { get; set; }
+        public IList<SelectListItem> PaymentTypes { get; set; }
     }
 }
