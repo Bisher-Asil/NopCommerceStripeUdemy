@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Payment methods",
+  "FriendlyName": "Bisher Plug Stripe",
+  "SystemName": "Payments.StripeStandard",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.50" ],
+  "Author": "Bisher Plugs",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugins.Payments.StripeStandard.dll",
+  "Description": "This plugin is for learning, IDK what it does yet"
+}
